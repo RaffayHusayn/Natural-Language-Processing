@@ -29,15 +29,24 @@ print(sentences[0])
 print(len(labels))
 print(labels[0])
 
+filtered_sentences = []
+print(stopwords)
+
+for sentence in sentences:
+  sentence_split= sentence.split()
+  ind_sentence = [word for word in sentence_split if word not in stopwords]
+  filtered_sentences.append(ind_sentence)
+
 tokenizer = Tokenizer(oov_token ='<OOV>')
-tokenizer.fit_on_texts(sentences)
+tokenizer.fit_on_texts(filtered_sentences)
 word_index = tokenizer.word_index
 
 
 print(word_index)
 print(len(word_index))
 
-sequences = tokenizer.texts_to_sequences(sentences)
+
+sequences = tokenizer.texts_to_sequences(filtered_sentences)
 padded = pad_sequences(sequences, padding='post')
 print(padded[0])
 print(padded.shape)
