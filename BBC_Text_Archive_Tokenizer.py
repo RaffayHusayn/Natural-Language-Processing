@@ -3,7 +3,7 @@
     https://storage.googleapis.com/laurencemoroney-blog.appspot.com/bbc-text.csv \
     -O /tmp/bbc-text.csv
 
-  
+#imports
 import csv
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -41,16 +41,13 @@ for sentence in sentences:
   ind_sentence = [word for word in sentence_split if word not in stopwords]
   filtered_sentences.append(ind_sentence)
 
-
 #Tokenizing the Sentences
 tokenizer = Tokenizer(oov_token ='<OOV>')
 tokenizer.fit_on_texts(filtered_sentences)
 word_index = tokenizer.word_index
 
-
 print(word_index)
 print(len(word_index))
-
 
 sequences = tokenizer.texts_to_sequences(filtered_sentences)
 padded = pad_sequences(sequences, padding='post')
